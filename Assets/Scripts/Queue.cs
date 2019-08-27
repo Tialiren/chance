@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Queue : MonoBehaviour
 {
+     int[] query; 
+     int lenght;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +19,6 @@ public class Queue : MonoBehaviour
     {
         
     }
+
+   
 }
