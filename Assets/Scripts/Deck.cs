@@ -7,8 +7,12 @@ public class Card
 {
     public float Number { get => number; set => number = value; }
     public float Quantity { get => quantity; set => quantity = value; }
+    public RarityCard Rarity { get => rarity; set => rarity = value; }
+
     private float number;
     private float quantity;
+    private RarityCard rarity;
+
 }
 public class Deck {
     private string name;
@@ -17,11 +21,14 @@ public class Deck {
     public string Name { get => name; set => name = value; }
     public float Points { get => points; set => points = value; }
     public List<Card> Cards { get => cards; }
+    public RarityCard RarityCard { get => rarityCard; set => rarityCard = value; }
 
-    public Deck(int sizeDeck){
+    private RarityCard rarityCard;
+
+    public Deck(int sizeDeck, RarityCard rariry){
         cards = new List<Card>();
         for(int i =0; i<sizeDeck; i++){
-            cards.Add(new Card(){Number=i+1, Quantity = 0});
+            cards.Add(new Card(){Number=i+1, Quantity = 0, Rariry = rariry});
         }
     }
 
