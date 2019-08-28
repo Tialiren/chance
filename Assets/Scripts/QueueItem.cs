@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class QueueItem 
 {
-    public float CardNumber;
-    public float CardWeight;
-    public string QueueName; 
-    public bool IsStore;
+    private float cardNumber;
+    private float cardWeight;
+    private string queueName;
+    private bool isStore;
+
+    public float CardNumber { get => cardNumber; set => cardNumber = value; }
+    public float CardWeight { get => cardWeight; set => cardWeight = value; }
+    public string QueueName { get => queueName; set => queueName = value; }
+    public bool IsStore { get => isStore; set => isStore = value; }
 
     public QueueItem(float number, float weight, string name, bool isStore){
         CardNumber = number;

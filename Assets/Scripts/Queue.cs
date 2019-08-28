@@ -11,15 +11,14 @@ public static class Queue
     static List<float> greenStore = new List<float> {1, 3, 4, 5, 5, 5};
     static List<float> blueStore = new List<float> {1, 3, 4, 5, 5, 5};
     static List<float> violStore = new List<float> {1, 3, 4, 5, 5, 5};
-    static List<List<float>> weightsAll = new List<List<float>>{greenMission, blueMission, violMission, greenStore, blueStore, violStore};
-
 
     private static float _totalWeight;
     public static float TotalWeight
 	{
 		get
 		{
-			if (_totalWeight == null || _totalWeight == 0){           
+			if (_totalWeight == null || _totalWeight == 0){
+                List<List<float>> weightsAll = new List<List<float>>{greenMission, blueMission, violMission, greenStore, blueStore, violStore};           
                                 
                 foreach(var _w in weightsAll){
                     if(_totalWeight == null || _totalWeight == 0){
