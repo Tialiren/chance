@@ -34,7 +34,7 @@ public class Deck {
         }
         Points = pointsDeck;
         Name = nameDeck;
-
+        rarityCard = rariry;
     }
 
     public void AddCard(Card card){

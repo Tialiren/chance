@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class User {
 
-    private static List<Deck> decks;
+    private  List<Deck> decks;
 
     public User(int deckSize){
         decks = new List<Deck>();
@@ -16,5 +16,5 @@ public class User {
         decks.Add(violetDeck);
     }
 
-    public static List<Deck> Decks { get => decks; }
+    public List<Deck> Decks { get => decks; }
 }

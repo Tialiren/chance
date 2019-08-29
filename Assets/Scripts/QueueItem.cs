@@ -15,9 +15,9 @@ public class QueueItem
     public string QueueName { get => queueName; set => queueName = value; }
     public bool IsStore { get => isStore; set => isStore = value; }
     public RarityCard Rarity { get => rarity; set => rarity = value; }
-    public float IndexQueue { get => indexQueue; set => indexQueue = value; }
+    public int IndexQueue { get => indexQueue; set => indexQueue = value; }
 
-    private float indexQueue;
+    private int indexQueue;
 
 
     public QueueItem(float number, float weight, string name, RarityCard rarity, bool isStore){

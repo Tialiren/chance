@@ -37,13 +37,17 @@ public static class Queue
  	public static List<List<QueueItem>> RandomQuery()
 	{
 		List<List<QueueItem>> _items = new List<List<QueueItem>>();
-    
+        
         _items.Add(QueueItem.GetQueuesList(greenMission, "Green Mission", RarityCard.Green, false));
         _items.Add(QueueItem.GetQueuesList(blueMission, "Blue Mission", RarityCard.Blue, false));
         _items.Add(QueueItem.GetQueuesList(violMission, "Violet Mission", RarityCard.Violet, false));
         _items.Add(QueueItem.GetQueuesList(greenStore, "Green Store", RarityCard.Green, true));
         _items.Add(QueueItem.GetQueuesList(blueStore, "Blue Store", RarityCard.Blue, true));
         _items.Add(QueueItem.GetQueuesList(violStore, "Violet Store", RarityCard.Violet, true));
+
+        foreach(var _i in _items){
+            Shuffle(_i);
+        }
 
 		return _items.Count <= 0 ? null : _items;	
 	} 
