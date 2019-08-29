@@ -15,6 +15,10 @@ public class QueueItem
     public string QueueName { get => queueName; set => queueName = value; }
     public bool IsStore { get => isStore; set => isStore = value; }
     public RarityCard Rarity { get => rarity; set => rarity = value; }
+    public float IndexQueue { get => indexQueue; set => indexQueue = value; }
+
+    private float indexQueue;
+
 
     public QueueItem(float number, float weight, string name, RarityCard rarity, bool isStore){
         CardNumber = number;
@@ -22,6 +26,7 @@ public class QueueItem
         QueueName = name;
         IsStore = isStore;
         Rarity = rarity;
+        indexQueue = 0;
     }
 
     public static List<QueueItem> GetQueuesList(List<float> weights, string name, RarityCard rarity, bool isStore){
@@ -30,7 +35,7 @@ public class QueueItem
         
         foreach(var _w in weights){
             for(int i=0; i<_w; i++){
-                _queues.Add(new QueueItem(_number, _w, name, isStore));
+                _queues.Add(new QueueItem(_number, _w, name, rarity, isStore));
             }
             _number++;
         }

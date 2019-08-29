@@ -25,11 +25,16 @@ public class Deck {
 
     private RarityCard rarityCard;
 
-    public Deck(int sizeDeck, RarityCard rariry){
+    private float indexQueue;
+
+    public Deck(int sizeDeck, RarityCard rariry, float pointsDeck, string nameDeck){
         cards = new List<Card>();
         for(int i =0; i<sizeDeck; i++){
-            cards.Add(new Card(){Number=i+1, Quantity = 0, Rariry = rariry});
+            cards.Add(new Card(){Number=i+1, Quantity = 0, Rarity = rariry});
         }
+        Points = pointsDeck;
+        Name = nameDeck;
+
     }
 
     public void AddCard(Card card){
@@ -38,6 +43,7 @@ public class Deck {
                 _c.Quantity++;
             }
         }
+
     }
 
     public float GetFullDecks(){
