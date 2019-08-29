@@ -111,5 +111,35 @@ public class MainController : MonoBehaviour
         }
     }
 
+    public void OpenGreenStoreBox(int count){
+        for(int i=0; i<count; i++){
+            List<List<QueueItem>> _q = new List<List<QueueItem>>();
+            _q.Add(queues[3]);
+            Box.OpenRandomBox(true, _q, User);
+            countStore++;
+            boxStore.text = countStore.ToString();
+        }
+    }
+
+    public void OpenBlueStoreBox(int count){
+        for(int i=0; i<count; i++){
+            List<List<QueueItem>> _q = new List<List<QueueItem>>();
+            _q.Add(queues[4]);
+            Box.OpenRandomBox(true, _q, User);
+            countStore++;
+            boxStore.text = countStore.ToString();
+        }
+    }
+
+    public void OpenVioletStoreBox(int count){
+        for(int i=0; i<count; i++){
+            List<List<QueueItem>> _q = new List<List<QueueItem>>();
+            _q.Add(queues[5]);
+            Box.OpenRandomBox(true, _q, User);
+            countStore++;
+            boxStore.text = countStore.ToString();
+        }
+    }
+
 
 }

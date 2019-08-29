@@ -34,6 +34,11 @@ public static class Box
             Debug.LogError("Chance not equal 1! It is " + _sumChance);
         }
 
+        if(queues.Count == 1){
+            Box.OpenBox(isStore, queues[0], user);
+            return;
+        }
+
         
         float rnd = Random.Range(0f, 1f);
 

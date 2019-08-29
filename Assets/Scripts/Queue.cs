@@ -5,12 +5,12 @@ using System.Linq;
 
 public static class Queue 
 {
-    static List<float> greenMission = new List<float>{1, 3, 4, 5, 5, 5};
-    static List<float> blueMission = new List<float> {1, 3, 4, 5, 5, 5};
-    static List<float> violMission = new List<float> {1, 3, 4, 5, 5, 5};
-    static List<float> greenStore = new List<float> {1, 3, 4, 5, 5, 5};
-    static List<float> blueStore = new List<float> {1, 3, 4, 5, 5, 5};
-    static List<float> violStore = new List<float> {1, 3, 4, 5, 5, 5};
+    static List<float> greenMission = new List<float>{3, 9, 9, 12, 12, 15};
+    static List<float> blueMission = new List<float>{3, 9, 9, 12, 12, 15};
+    static List<float> violMission = new List<float>{3, 9, 9, 12, 12, 15};
+    static List<float> greenStore = new List<float>{15, 12, 12, 9, 9, 3};
+    static List<float> blueStore = new List<float>{15, 12, 12, 9, 9, 3};
+    static List<float> violStore = new List<float>{15, 12, 12, 9, 9, 3};
 
     private static float _totalWeight;
     public static float TotalWeight
