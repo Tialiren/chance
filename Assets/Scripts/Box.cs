@@ -28,7 +28,8 @@ public static class Box
     public static float ChanceGreen { get => chanceGreen; set => chanceGreen = value; }
     public static float TotalWeight { get => totalWeight; set => totalWeight = value; }
 
-    public static void OpenRandomBox(bool isStore, List<List<QueueItem>> queues, User user){
+    public static void OpenRandomBox(bool isStore, List<List<QueueItem>> queues, User user, bool isRandomBonus)
+    {
         var _sumChance = chanceGreen+chanceBlue+chanceViolet;
         if(_sumChance > 1){
             Debug.LogError("Chance not equal 1! It is " + _sumChance);

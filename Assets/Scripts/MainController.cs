@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System;
+
 public class MainController : MonoBehaviour
 {
     // Start is called before the first frame updat
@@ -12,6 +15,8 @@ public class MainController : MonoBehaviour
 
     private User User;
     private List<List<QueueItem>> queues;
+
+    public UnityEngine.UI.InputField _countBox;
 
     public UnityEngine.UI.Text _greenCount;
     public UnityEngine.UI.Text _blueCount;
@@ -41,11 +46,16 @@ public class MainController : MonoBehaviour
     public UnityEngine.UI.Text boxMission;
     public UnityEngine.UI.Text boxStore;
 
+    public UnityEngine.UI.Toggle IsRandomBonus;
+
     private int countMission;
     private int countStore;
 
+
+
     void Start()
-    {     
+    {
+ 
         _totalWeight.text = Queue.TotalWeight.ToString();
 
         queues = Queue.RandomQuery();
@@ -54,9 +64,9 @@ public class MainController : MonoBehaviour
 
         Box.CountCardMission = 1;
         Box.CountCardStore = 6;
-        Box.ChanceViolet = 0.03f;
+        Box.ChanceViolet = 0.05f;
         Box.ChanceBlue = 0.1f;
-        Box.ChanceGreen = 0.87f;
+        Box.ChanceGreen = 0.86f;
         Box.TotalWeight = Queue.TotalWeight;
         
     }
@@ -95,50 +105,85 @@ public class MainController : MonoBehaviour
     }
 
     public void OpenRandomMissionBox(int count){
-        for(int i=0; i<count; i++){
-            Box.OpenRandomBox(false, queues, User);
+        if (count == 0)
+        {
+            count = Convert.ToInt32(_countBox.text);
+        }
+        
+        for (int i=0; i<count; i++){
+            Box.OpenRandomBox(false, queues, User, IsRandomBonus);
             countMission++;
             boxMission.text = countMission.ToString();
-
         }
     }
 
     public void OpenRandomStoreBox(int count){
-        for(int i=0; i<count; i++){
-            Box.OpenRandomBox(true, queues, User);
+        if (count == 0)
+        {
+            count = Convert.ToInt32(_countBox.text);
+        }
+
+        for (int i=0; i<count; i++){
+            Box.OpenRandomBox(true, queues, User, IsRandomBonus);
             countStore++;
             boxStore.text = countStore.ToString();
         }
     }
 
     public void OpenGreenStoreBox(int count){
-        for(int i=0; i<count; i++){
+        if (count == 0)
+        {
+            count = Convert.ToInt32(_countBox.text);
+        }
+        for (int i=0; i<count; i++){
             List<List<QueueItem>> _q = new List<List<QueueItem>>();
             _q.Add(queues[3]);
-            Box.OpenRandomBox(true, _q, User);
+            Box.OpenRandomBox(true, _q, User, IsRandomBonus);
             countStore++;
             boxStore.text = countStore.ToString();
         }
     }
 
     public void OpenBlueStoreBox(int count){
-        for(int i=0; i<count; i++){
+        if (count == 0)
+        {
+            count = Convert.ToInt32(_countBox.text);
+        }
+        for (int i=0; i<count; i++){
             List<List<QueueItem>> _q = new List<List<QueueItem>>();
             _q.Add(queues[4]);
-            Box.OpenRandomBox(true, _q, User);
+            Box.OpenRandomBox(true, _q, User, IsRandomBonus);
             countStore++;
             boxStore.text = countStore.ToString();
         }
     }
 
     public void OpenVioletStoreBox(int count){
-        for(int i=0; i<count; i++){
+        if (count ==0)
+        {
+            count = Convert.ToInt32(_countBox.text);
+        }
+        for (int i=0; i<count; i++){
             List<List<QueueItem>> _q = new List<List<QueueItem>>();
             _q.Add(queues[5]);
-            Box.OpenRandomBox(true, _q, User);
+            Box.OpenRandomBox(true, _q, User, IsRandomBonus);
             countStore++;
             boxStore.text = countStore.ToString();
         }
+    }
+
+    public void SaveResult(){
+        string path = @"\BoxOpened.txt";
+        string line = "";
+        string text;
+
+        line += "Коробков стора: " + boxStore.text + " Коробков миссий: " + boxMission.text + " Зеленых: " + _greenCount.text + " Синих: " + _blueCount.text + " Фиолетовых: " + _violetCount.text;
+
+        using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
+        {
+            sw.WriteLine(line);
+        }
+
     }
 
 
