@@ -19,6 +19,7 @@ public class MainController : MonoBehaviour
     public UnityEngine.UI.InputField _countBox;
 
     public UnityEngine.UI.Text _greenCount;
+    public UnityEngine.UI.Text _greenPlus;
     public UnityEngine.UI.Text _blueCount;
     public UnityEngine.UI.Text _violetCount;
 
@@ -28,6 +29,14 @@ public class MainController : MonoBehaviour
     public UnityEngine.UI.Text green4;
     public UnityEngine.UI.Text green5;
     public UnityEngine.UI.Text green6;
+
+
+    public UnityEngine.UI.Text green1_rest;
+    public UnityEngine.UI.Text green2_rest;
+    public UnityEngine.UI.Text green3_rest;
+    public UnityEngine.UI.Text green4_rest;
+    public UnityEngine.UI.Text green5_rest;
+    public UnityEngine.UI.Text green6_rest;
 
     public UnityEngine.UI.Text blue1;
     public UnityEngine.UI.Text blue2;
@@ -45,28 +54,35 @@ public class MainController : MonoBehaviour
 
     public UnityEngine.UI.Text boxMission;
     public UnityEngine.UI.Text boxStore;
+    public UnityEngine.UI.Text boxStoreOne;
 
     public UnityEngine.UI.Toggle IsRandomBonus;
 
     private int countMission;
     private int countStore;
+    private int countStoreOne;
 
+    private float countIntGreen;
+    private float countIntBlue;
+    private float countIntViolet;
 
+    public UnityEngine.UI.InputField chanceGreen;
+    public UnityEngine.UI.InputField chanceBlue;
+    public UnityEngine.UI.InputField chanceViolet;
 
     void Start()
     {
- 
         _totalWeight.text = Queue.TotalWeight.ToString();
 
         queues = Queue.RandomQuery();
 
         User = new User(6);
-
+        
         Box.CountCardMission = 1;
         Box.CountCardStore = 6;
-        Box.ChanceViolet = 0.05f;
-        Box.ChanceBlue = 0.1f;
-        Box.ChanceGreen = 0.86f;
+        Box.ChanceViolet = float.Parse(chanceViolet.text);
+        Box.ChanceBlue =float.Parse(chanceBlue.text);
+        Box.ChanceGreen = float.Parse(chanceGreen.text);
         Box.TotalWeight = Queue.TotalWeight;
         
     }
@@ -99,9 +115,36 @@ public class MainController : MonoBehaviour
 
     }
 
-    public void OnRestartClick()
-    {
+    public void UpdateChances(){
+        Box.ChanceViolet = float.Parse(chanceViolet.text);
+        Box.ChanceBlue =float.Parse(chanceBlue.text);
+        Box.ChanceGreen = float.Parse(chanceGreen.text);
+    }
+
+    public void OnRestartClick(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void UpdateCards(){
+        var _countGreen = User.Decks[0].GetFullDecks();
+        var _countBlue = User.Decks[1].GetFullDecks();
+        var _countViolet = User.Decks[2].GetFullDecks();
+
+        if(_countGreen != countIntGreen){
+            _greenCount.text = _countGreen.ToString();
+            _greenPlus.text = "+" + (_countGreen-countIntGreen).ToString();
+            countIntGreen = _countGreen;
+        }else{
+            _greenPlus.text = "";
+        }
+
+        green1_rest.text = (User.Decks[0].Cards[0].Quantity - countIntGreen).ToString();
+        green2_rest.text = (User.Decks[0].Cards[1].Quantity - countIntGreen).ToString();
+        green3_rest.text = (User.Decks[0].Cards[2].Quantity - countIntGreen).ToString();
+        green4_rest.text = (User.Decks[0].Cards[3].Quantity - countIntGreen).ToString();
+        green5_rest.text = (User.Decks[0].Cards[4].Quantity - countIntGreen).ToString();
+        green6_rest.text = (User.Decks[0].Cards[5].Quantity - countIntGreen).ToString();
+
     }
 
     public void OpenRandomMissionBox(int count){
@@ -115,19 +158,29 @@ public class MainController : MonoBehaviour
             countMission++;
             boxMission.text = countMission.ToString();
         }
+        UpdateCards();
     }
 
-    public void OpenRandomStoreBox(int count){
-        if (count == 0)
-        {
-            count = Convert.ToInt32(_countBox.text);
-        }
+    public void OpenRandomStoreBox(bool isOne){
+        var count = Convert.ToInt32(_countBox.text);
+
+        if(isOne){
+            Box.CountCardStore = 1;
+        }    
 
         for (int i=0; i<count; i++){
             Box.OpenRandomBox(true, queues, User, IsRandomBonus);
-            countStore++;
-            boxStore.text = countStore.ToString();
+            if(isOne){
+                countStoreOne++;
+                boxStoreOne.text = countStoreOne.ToString();
+            }else{
+                countStore++;
+                boxStore.text = countStore.ToString();
+            }
+            
         }
+        Box.CountCardStore = 6;
+        UpdateCards();
     }
 
     public void OpenGreenStoreBox(int count){
@@ -142,6 +195,7 @@ public class MainController : MonoBehaviour
             countStore++;
             boxStore.text = countStore.ToString();
         }
+        UpdateCards();
     }
 
     public void OpenBlueStoreBox(int count){
@@ -156,6 +210,7 @@ public class MainController : MonoBehaviour
             countStore++;
             boxStore.text = countStore.ToString();
         }
+        UpdateCards();
     }
 
     public void OpenVioletStoreBox(int count){
@@ -170,20 +225,18 @@ public class MainController : MonoBehaviour
             countStore++;
             boxStore.text = countStore.ToString();
         }
+        UpdateCards();
     }
 
     public void SaveResult(){
         string path = @"\BoxOpened.txt";
         string line = "";
         string text;
-
         line += "Коробков стора: " + boxStore.text + " Коробков миссий: " + boxMission.text + " Зеленых: " + _greenCount.text + " Синих: " + _blueCount.text + " Фиолетовых: " + _violetCount.text;
-
         using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
         {
             sw.WriteLine(line);
         }
-
     }
 
 

@@ -6,6 +6,10 @@ public class User {
 
     private  List<Deck> decks;
 
+    private int countGreen;
+    private int countBlue;
+    private int countViolet;
+
     public User(int deckSize){
         decks = new List<Deck>();
         Deck greenDeck = new Deck(deckSize, RarityCard.Green, 150, "Green");
@@ -14,7 +18,11 @@ public class User {
         decks.Add(greenDeck);
         decks.Add(blueDeck);
         decks.Add(violetDeck);
+      
     }
 
     public List<Deck> Decks { get => decks; }
+    public int CountViolet { get => countViolet; set => countViolet = value; }
+    public int CountBlue { get => countBlue; set => countBlue = value; }
+    public int CountGreen { get => countGreen; set => countGreen = value; }
 }
